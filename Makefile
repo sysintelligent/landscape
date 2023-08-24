@@ -1,6 +1,6 @@
 # Makefile for Kubernetes Deployment
 
-.PHONY: add-session-token update-existing-profile test-existing-profile
+.PHONY: add-session-token get-session-token test-existing-profile
 
 # Define variables
 EXISTING_PROFILE_NAME = mfa
@@ -25,7 +25,7 @@ add-session-token:
 	rm session_token.txt; \
 	echo "Session token added to profile $(PROFILE_NAME)."
 
-update-existing-profile:
+get-session-token:
 	# Prompt for the MFA token code
 	read -p "Enter MFA token code: " TOKEN_CODE; \
 	echo "Updating existing AWS CLI profile..."; \
@@ -33,13 +33,16 @@ update-existing-profile:
 		--serial-number $(MFA_SERIAL_NUMBER) \
 		--duration-seconds $(DURATION_SECONDS) \
 		--token-code $$TOKEN_CODE | \
-		awk '/AccessKeyId|SecretAccessKey|SessionToken/ { print }' > session_token.txt; \
+		grep 'AccessKeyId\|SecretAccessKey\|SessionToken' > session_token.txt; \
+	AWS_ACCESS_KEY_ID=$$(grep 'AccessKeyId' session_token.txt | awk '{print $$2}'); \
+	AWS_SECRET_ACCESS_KEY=$$(grep 'SecretAccessKey' session_token.txt | awk '{print $$2}'); \
+	AWS_SESSION_TOKEN=$$(grep 'SessionToken' session_token.txt | awk '{print $$2}'); \
 	aws configure --profile $(EXISTING_PROFILE_NAME) \
-		set aws_access_key_id $$(grep 'AccessKeyId' session_token.txt | cut -d'"' -f4); \
+		set aws_access_key_id $$AWS_ACCESS_KEY_ID; \
 	aws configure --profile $(EXISTING_PROFILE_NAME) \
-		set aws_secret_access_key $$(grep 'SecretAccessKey' session_token.txt | cut -d'"' -f4); \
+		set aws_secret_access_key $$AWS_SECRET_ACCESS_KEY; \
 	aws configure --profile $(EXISTING_PROFILE_NAME) \
-		set aws_session_token $$(grep 'SessionToken' session_token.txt | cut -d'"' -f4); \
+		set aws_session_token $$AWS_SESSION_TOKEN; \
 	rm session_token.txt; \
 	echo "Existing profile $(EXISTING_PROFILE_NAME) updated."
 
