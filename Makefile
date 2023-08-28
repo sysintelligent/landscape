@@ -1,6 +1,6 @@
 # Makefile for Kubernetes Deployment
 
-.PHONY: get-session-token test-profile
+.PHONY: get-session-token test-profile deploy-aws-cluster
 
 # Define variables
 EXISTING_PROFILE_NAME = mfa
