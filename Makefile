@@ -1,6 +1,7 @@
 # Makefile for Kubernetes Deployment
 
-.PHONY: get-session-token test-profile deploy-aws-cluster
+.POSIX:
+.PHONY: *
 
 # Define variables
 EXISTING_PROFILE_NAME = mfa
@@ -32,20 +33,15 @@ test-profile:
 	# Test the updated existing profile
 	aws s3 ls --profile $(EXISTING_PROFILE_NAME)
 
-deploy-local:
-	kubectl apply -f system/ingress-controller.yaml
-	kubectl apply -f system/grafana.yaml
-	kubectl apply -f system/loki.yaml
-	kubectl apply -f system/prometheus.yaml
-
-clean-local:
-	kubectl delete -f system/prometheus.yaml
-	kubectl delete -f system/loki.yaml
-	kubectl delete -f system/grafana.yaml
-	kubectl delete -f system/ingress-controller.yaml
-
 deploy-aws-cluster:
 	eksctl create cluster -f platform/aws-cluster.yaml --profile mfa
 
 delete-aws-cluster:
 	eksctl delete cluster -f platform/aws-cluster.yaml --profile mfa
+
+bootstrap:
+	make -C bootstrap
+
+clean:
+	minikube stop
+	minikube delete
