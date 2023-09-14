@@ -1,0 +1,9 @@
+gitops:
+  repo: https://github.com/sysintelligent/landscape
+  revision: master
+stacks:
+  # - name: bootstrap
+  #   namespace: argocd  # Override default value
+  - name: system
+  # - name: platform
+  # - name: apps
