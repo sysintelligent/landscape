@@ -18,5 +18,5 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           resources:
             limits:
-              cpu: { { .Values.resources.limits.cpu } }
-              memory: { { .Values.resources.limits.memory } }
+              cpu: {{ .Values.resources.limits.cpu }}
+              memory: {{ .Values.resources.limits.memory }}
