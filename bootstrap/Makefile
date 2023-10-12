@@ -8,8 +8,7 @@ namespace:
 
 .PHONY: argocd
 argocd:
-	# cd argocd && ./apply.sh
-	kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+	cd argocd && ./apply.sh
 
 .PHONY: root
 root:
