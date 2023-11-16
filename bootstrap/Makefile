@@ -1,13 +1,11 @@
 .POSIX:
 
-default: namespace argocd
-
-namespace:
-	kubectl create namespace argocd --dry-run=client --output=yaml \
-		| kubectl apply -f -
+default: argocd
 
 .PHONY: argocd
 argocd:
+	kubectl create namespace argocd --dry-run=client --output=yaml \
+		| kubectl apply -f -
 	cd argocd && ./apply.sh
 
 .PHONY: root
