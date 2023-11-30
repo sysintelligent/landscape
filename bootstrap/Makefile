@@ -1,6 +1,6 @@
 .POSIX:
 
-default: argocd
+default: argocd root
 
 .PHONY: argocd
 argocd:

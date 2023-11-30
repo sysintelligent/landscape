@@ -5,6 +5,8 @@ VALUES="values.yaml"
 kubectl get ingress gitea --namespace gitea \
     || VALUES="values-seed.yaml"
 
+echo "${VALUES}"
+
 helm template \
     --include-crds \
     --namespace argocd \

@@ -16,6 +16,7 @@ helm template \
 # If you want to install argocd with the latest version using the manifests
 # kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
+# Wait for the argocd server to be ready
 kubectl -n argocd wait --timeout=60s --for condition=Established \
        crd/applications.argoproj.io \
        crd/applicationsets.argoproj.io
