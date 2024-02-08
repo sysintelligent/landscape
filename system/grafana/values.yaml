@@ -4,7 +4,7 @@
 persistence:
   enabled: true
   type: hostPath
-  hostPath: /data/grafana
+  hostPath: /src/grafana
 
 ## Specify the Grafana admin password
 adminPassword: admin
