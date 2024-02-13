@@ -1,10 +1,13 @@
-# values.yaml for Grafana
-
-## Define the persistence settings
-persistence:
-  enabled: true
-  type: hostPath
-  hostPath: /src/grafana
-
-## Specify the Grafana admin password
-adminPassword: admin
+grafana:
+  persistence:
+    enabled: true
+    # Configure the access mode for the PersistentVolumeClaim
+    accessModes:
+      - ReadWriteOnce
+    # Define the size of the volume
+    size: 1Gi
+    # Configure storage class
+    # Uncomment and modify the storage class according to your Kubernetes environment
+    # storageClassName: default
+    # Define the path where data will be stored in the volume
+    path: /src
