@@ -1,17 +1,30 @@
-# landscape
 
-## Usage
+To set up the project, follow these steps:
 
-In your terminal, navigate to the root directory of your repository and use the following commands:
+1. Start Minikube with volume mounting:
+   ```bash
+   minikube start --mount --mount-string="$HOME/vol:/src"
+   ```
 
-- To deploy components to your local cluster:
+2. Run bootstrap:
+   ```bash
+   make bootstrap
+   ```
 
-```
-make deploy-local
-```
+To verify the setup, run the following commands:
 
-- To clean up (delete) the deployed components from your local cluster:
+- Check ArgoCD at [192.168.49.2:31607](http://192.168.49.2:31607)
+- Access Prometheus at [192.168.49.2:30001](http://192.168.49.2:30001)
+- Log in to Grafana at [192.168.49.2:30002/login](http://192.168.49.2:30002/login)
 
-```
-make clean-local
-```
+For access credentials, use the following:
+
+- Argo CD:
+  ```bash
+  kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+  ```
+
+- Grafana:
+  ```bash
+  kubectl -n grafana get secret grafana -o jsonpath="{.data.admin-password}" | base64 -d
+  ```
