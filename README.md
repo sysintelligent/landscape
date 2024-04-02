@@ -1,5 +1,4 @@
-
-To set up the project, follow these steps:
+Follow these steps to set up the project:
 
 1. Start Minikube with volume mounting:
    ```bash
@@ -9,15 +8,16 @@ To set up the project, follow these steps:
 2. Run bootstrap:
    ```bash
    make bootstrap
+   curl $(minikube ip):30000
    ```
 
-To verify the setup, run the following commands:
+To verify the setup, execute the following commands:
 
-- Check ArgoCD at [192.168.49.2:31607](http://192.168.49.2:31607)
-- Access Prometheus at [192.168.49.2:30001](http://192.168.49.2:30001)
-- Log in to Grafana at [192.168.49.2:30002/login](http://192.168.49.2:30002/login)
+- ArgoCD: Visit [192.168.49.2:31607](http://192.168.49.2:31607)
+- Prometheus: Access [192.168.49.2:30001](http://192.168.49.2:30001)
+- Grafana: Log in at [192.168.49.2:30002/login](http://192.168.49.2:30002/login)
 
-For access credentials, use the following:
+Use the following credentials for access:
 
 - Argo CD:
   ```bash
