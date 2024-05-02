@@ -1,6 +1,7 @@
 apiVersion: v2
 name: hello-app
-description: A Helm chart for hello-app
-type: application
-version: 2.0.1
-appVersion: "2.0.1"
+version: 0.0.0
+dependencies:
+  - name: hello-app
+    version: 2.0.1
+    repository: https://sysintelligent.github.io/hello-app-helm/
